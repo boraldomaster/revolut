@@ -20,8 +20,7 @@ public class CustomerContainer {
 
     @POST
     public Object create(CustomerForm form) {
-        Integer id = customerStore.create(form).getId();
-        return Collections.singletonMap("id", id);
+        return customerStore.create(form);
     }
 
     @GET
