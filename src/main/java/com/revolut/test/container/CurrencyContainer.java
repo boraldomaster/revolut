@@ -22,10 +22,16 @@ public class CurrencyContainer {
     }
 
     @GET
-    public Object get(@QueryParam("code") String code) {
-        if (code == null)
-            return currencyStore.all();
+    @Path("/{code}")
+    public Object get(@PathParam("code") String code) {
         return currencyStore.get(code);
     }
+
+    @GET
+    public Object get() {
+        return currencyStore.all();
+    }
+
+
 
 }

@@ -4,6 +4,7 @@ import com.revolut.test.model.account.Account;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.concurrent.ConcurrentHashMap;
@@ -55,10 +56,11 @@ public class TransactionStore {
         }
     }
 
-    public Collection<Transaction> listByParty(Account party) {
+    public Collection<Transaction> listByAccount(Account party) {
         if (party == null)
             throw new IllegalStateException("Party account is not found");
-        return indexByParty.get(party.getId()).all();
+        TransactionIndex index = indexByParty.get(party.getId());
+        return index == null ? Collections.emptyList() : index.all();
     }
 
     public Collection<Transaction> listByDate(Date start, Date end) {

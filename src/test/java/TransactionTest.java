@@ -121,8 +121,8 @@ public class TransactionTest {
 
         assertAmount(BigDecimal.ZERO, source);
         assertAmount(initial, target);
-        Assert.assertEquals(100, store.listByParty(source).size());
-        Assert.assertEquals(100, store.listByParty(target).size());
+        Assert.assertEquals(100, store.listByAccount(source).size());
+        Assert.assertEquals(100, store.listByAccount(target).size());
 
     }
 

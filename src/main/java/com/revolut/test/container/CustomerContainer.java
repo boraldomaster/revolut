@@ -19,7 +19,7 @@ public class CustomerContainer {
     private CustomerStore customerStore = StoreFactory.getFactory().getCustomerStore();
 
     @POST
-    public Object create(CustomerForm form)  {
+    public Object create(CustomerForm form) {
         Integer id = customerStore.create(form).getId();
         return Collections.singletonMap("id", id);
     }
@@ -37,19 +37,23 @@ public class CustomerContainer {
     }
 
     @GET
+    @Path("/{id}")
+    public Customer get(@PathParam("id") Integer id) {
+        return check(customerStore.getById(id));
+    }
+
+
+    @GET
     @Path("/get")
     public Customer get(
-            @QueryParam("id") Integer id,
             @QueryParam("email") String email,
             @QueryParam("name") String name
     ) {
-        if (id != null)
-            return check(customerStore.getById(id));
         if (email != null)
             return check(customerStore.getByEmail(email));
         if (name != null)
             return check(customerStore.getByName(name));
-        throw new IllegalStateException("You must specify parameter: id, name or email");
+        throw new IllegalStateException("You must specify name or email");
     }
 
     @GET
@@ -62,7 +66,7 @@ public class CustomerContainer {
             return customerStore.searchByEmail(email);
         if (name != null)
             return customerStore.searchByName(name);
-        throw new IllegalStateException("Customer is not found");
+        throw new IllegalStateException("You must specify name or email");
     }
 
 }

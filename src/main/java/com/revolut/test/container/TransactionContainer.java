@@ -29,13 +29,14 @@ public class TransactionContainer {
     }
 
     @GET
-    @Path("/{partyID}")
-    public Collection<Transaction> listByParty(@PathParam("partyID") Integer partyID)  {
-        Account party = partyID == null ? null : accountStore.getById(partyID);
-        return transactionStore.listByParty(party);
+    @Path("/account/{id}")
+    public Collection<Transaction> listByAccount(@PathParam("id") Integer accountID)  {
+        Account account = accountID == null ? null : accountStore.getById(accountID);
+        return transactionStore.listByAccount(account);
     }
 
     @GET
+    @Path("/date")
     public Collection<Transaction> listByDate(@QueryParam("start") long start, @QueryParam("end") long end) {
         return transactionStore.listByDate(new Date(start), new Date(end + 1));
     }
